@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Vida em Cristo - Transformando Vidas</title>
+    <meta name="description" content="Igreja Vida em Cristo - Uma comunidade de fé que transforma vidas através do amor de Cristo">
+    
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Fontes do Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- HEADER - Cabeçalho do site -->
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <!-- Logo da Igreja -->
+                <div class="logo">
+                    <i class="fas fa-cross"></i>
+                    <span>Igreja Vida em Cristo</span>
+                </div>
+                
+                <!-- Menu de Navegação -->
+                <ul class="nav-menu">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">Sobre Nós</a></li>
+                    <li><a href="#videos">Vídeos</a></li>
+                    <li><a href="#cursos">Cursos</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+                
+                <!-- Botão do menu mobile -->
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- SEÇÃO HERO - Primeira seção com destaque -->
+     
+    <section id="inicio" class="hero ">
+        
+        <div class="hero-overlay"><img class="imagem" src="/hero-background.jpg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Transformando Vidas em Cristo</h1>
+            <p class="hero-subtitle">Uma comunidade jovem e vibrante que vive a fé de forma autêntica e transformadora</p>
+            <div class="hero-buttons">
+                <a href="#sobre" class="btn btn-primary">
+                    <i class="fas fa-heart"></i>
+                    Conheça Nossa História
+                </a>
+                <a href="#contato" class="btn btn-secondary">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Visite-nos
+                </a>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- SEÇÃO SOBRE - Informações sobre a igreja -->
+    <section id="sobre" class="about">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Quem Somos</span>
+                <h2>Uma Igreja Para Todas as Gerações</h2>
+                <p>Somos uma comunidade diversa e acolhedora, especialmente focada em alcançar jovens e famílias</p>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-text">
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="about-info">
+                            <h3>Nossa Missão</h3>
+                            <p>Levar o amor de Cristo a todas as pessoas, especialmente aos jovens, transformando vidas através da palavra de Deus e do poder do Espírito Santo.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="about-info">
+                            <h3>Nossa Comunidade</h3>
+                            <p>Uma família diversa e acolhedora, onde jovens e adultos crescem juntos na fé, compartilhando experiências e construindo relacionamentos duradouros.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-item">
+                        <div class="about-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="about-info">
+                            <h3>Nossa Visão</h3>
+                            <p>Ser uma igreja relevante e transformadora, que impacta positivamente nossa cidade através do amor, da verdade e da esperança em Cristo.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="about-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Membros Ativos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Anos de História</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Cultos por Semana</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Ministérios Ativos</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO VÍDEOS - Integração com YouTube -->
+    <section id="videos" class="videos">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Conteúdo Inspirador</span>
+                <h2>Vídeos e Mensagens</h2>
+                <p>Assista às nossas mensagens e conteúdos que edificam e transformam vidas</p>
+            </div>
+            
+            <div class="videos-grid" id="videosContainer">
+                <!-- Os vídeos serão carregados dinamicamente via JavaScript -->
+                <div class="video-loading">
+                    <i class="fab fa-youtube"></i>
+                    <p>Carregando vídeos inspiradores...</p>
+                </div>
+            </div>
+            
+            <div class="videos-link">
+                <a href="https://www.youtube.com/@harleywagner" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-youtube"></i>
+                    Ver Todos os Vídeos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CURSOS - Sistema de venda de cursos em PDF -->
+    <section id="cursos" class="courses">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Crescimento Espiritual</span>
+                <h2>Cursos Bíblicos Digitais</h2>
+                <p>Aprofunde seus conhecimentos com nossos e-books em PDF de alta qualidade</p>
+            </div>
+            
+            <div class="payment-info">
+                <div class="payment-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Escolha seu curso</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">Pague via PIX</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">Envie o comprovante</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-text">Receba o e-book por email</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="courses-grid">
+                <!-- Curso 1 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>Fundamentos da Fé Cristã</h3>
+                        <p>Um curso completo sobre os pilares da fé cristã, ideal para novos convertidos e quem deseja fortalecer sua base bíblica.</p>
+                        <div class="course-features">
+                            <span><i class="fas fa-file-pdf"></i> E-book em PDF</span>
+                            <span><i class="fas fa-clock"></i> 120 páginas</span>
+                            <span><i class="fas fa-certificate"></i> Certificado</span>
+                        </div>
+                        <div class="course-price">R$ 29,90</div>
+                        <button class="btn btn-primary course-buy-btn" data-course="fundamentos" data-price="29.90" data-title="Fundamentos da Fé Cristã">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar E-book
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Curso 2 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fas fa-praying-hands"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>O Poder da Oração</h3>
+                        <p>Descubra como desenvolver uma vida de oração eficaz e transformadora através de ensinamentos práticos e bíblicos.</p>
+                        <div class="course-features">
+                            <span><i class="fas fa-file-pdf"></i> E-book em PDF</span>
+                            <span><i class="fas fa-clock"></i> 95 páginas</span>
+                            <span><i class="fas fa-certificate"></i> Certificado</span>
+                        </div>
+                        <div class="course-price">R$ 24,90</div>
+                        <button class="btn btn-primary course-buy-btn" data-course="oracao" data-price="24.90" data-title="O Poder da Oração">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar E-book
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Curso 3 -->
+                <div class="course-card">
+                    <div class="course-image">
+                        <i class="fas fa-crown"></i>
+                    </div>
+                    <div class="course-content">
+                        <h3>Vida Cristã Vitoriosa</h3>
+                        <p>Aprenda a viver uma vida cristã plena e vitoriosa, superando desafios através da fé em Jesus Cristo.</p>
+                        <div class="course-features">
+                            <span><i class="fas fa-file-pdf"></i> E-book em PDF</span>
+                            <span><i class="fas fa-clock"></i> 150 páginas</span>
+                            <span><i class="fas fa-certificate"></i> Certificado</span>
+                        </div>
+                        <div class="course-price">R$ 34,90</div>
+                        <button class="btn btn-primary course-buy-btn" data-course="vida-vitoriosa" data-price="34.90" data-title="Vida Cristã Vitoriosa">
+                            <i class="fas fa-shopping-cart"></i>
+                            Comprar E-book
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO CONTATO - Informações de contato -->
+    <section id="contato" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Fale Conosco</span>
+                <h2>Entre em Contato</h2>
+                <p>Venha nos visitar ou entre em contato conosco. Será um prazer recebê-lo!</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Endereço</h4>
+                            <p>Rua da Fé, 123 - Centro<br>Fortaleza - CE, 60000-000</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Telefone</h4>
+                            <p>(85) 98774-8770</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>E-mail</h4>
+                            <p>harleyfoux@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Horários de Culto</h4>
+                            <p>Domingo: 9h e 19h<br>Quarta: 19h30<br>Sexta: 19h30 (Jovens)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" placeholder="Seu nome completo" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" placeholder="Seu melhor e-mail" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder="Seu telefone (opcional)">
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" name="message" placeholder="Sua mensagem" rows="5" required></textarea>
+                        </div>
+                        <button type="submit"  class="btn btn-primary">
+                            <i class="fas fa-paper-plane" ></i>
+                            Enviar Mensagem
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER - Rodapé do site -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-cross"></i>
+                        <span>Igreja Vida em Cristo</span>
+                    </div>
+                    <p>Transformando vidas através do amor de Cristo desde 2010. Uma comunidade jovem e vibrante.</p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/harleydekao/?hl=pt-br" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.youtube.com/@harleywagner" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/5585987748770" target="_blank">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#inicio">Início</a></li>
+                        <li><a href="#sobre">Sobre Nós</a></li>
+                        <li><a href="#videos">Vídeos</a></li>
+                        <li><a href="#cursos">Cursos</a></li>
+                        <li><a href="#contato">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Horários</h4>
+                    <ul>
+                        <li>Domingo: 9h e 19h</li>
+                        <li>Quarta: 19h30</li>
+                        <li>Sexta: 19h30 (Jovens)</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p><i class="fas fa-phone"></i> (85) 98774-8770</p>
+                    <p><i class="fas fa-envelope"></i> harleyfoux@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Fortaleza - CE</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Igreja Vida em Cristo. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ÍCONES FLUTUANTES -->
+    <!-- Ícone flutuante do YouTube -->
+    <a href="https://www.youtube.com/@harleywagner" target="_blank" class="floating-youtube" title="Assista nossos vídeos no YouTube">
+        <i class="fab fa-youtube"></i>
+    </a>
+    
+    <!-- Ícone flutuante do Instagram -->
+    <a href="https://www.instagram.com/harleydekao/?hl=pt-br" target="_blank" class="floating-instagram" title="Siga-nos no Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <!-- MODAL PARA PAGAMENTO PIX -->
+    <div id="pixModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="pixContent">
+                <!-- Conteúdo do PIX será inserido aqui via JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Principal -->
+    <script src="script.js"></script>
+</body>
+</html>
+
