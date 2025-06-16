@@ -18,12 +18,13 @@
   <title>Rádio Viva FM</title>
  <style>
   .radio-player {
+    font-size: 14px;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(507, 2, 2, 0.2);
     border-radius: 30px;
     padding: 6px;
-    width: 300px;
+    width: 320px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     font-family: 'Inter', sans-serif;
     display: flex;
@@ -35,6 +36,7 @@
   }
 
   .radio-player::before {
+    
     content: '';
     position: absolute;
     top: 0;
@@ -46,18 +48,21 @@
   }
 
   .radio-player:hover {
+    
     transform: translateY(-2px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   }
 
   .radio-controls {
+    border: 3px solid rgba(507, 2, 2, 0.2);
+    border-radius: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
   .radio-btn {
-    background: linear-gradient(135deg, #6366f1, #10b981);
+    background: linear-gradient(135deg, #81ee72, #bff3e2);
     border: none;
     color: white;
     width: 45px;
@@ -85,7 +90,7 @@
   }
 
   .radio-title {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 600;
     color: #1f2937;
     margin: 0;
@@ -108,7 +113,7 @@
 
   .radio-bar {
     width: 3px;
-    background: linear-gradient(to top, #6366f1, #10b981);
+    background: linear-gradient(to top, #b3f7a2, #10b981);
     border-radius: 2px;
     animation: audioWave 1.5s ease-in-out infinite;
   }

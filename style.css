@@ -35,9 +35,9 @@ body {
     --dark-bg: #111827;
     
     /* Gradientes modernos */
-    --gradient-primary: linear-gradient(135deg, #6366f1 0%, #5cf65c 100%);
+    --gradient-primary: linear-gradient(135deg, #026a85 0%, #bcf7bc 100%);
        
-    --gradient-accent: linear-gradient(135deg, #1037b9 0%, #059669 100%);
+    --gradient-accent: linear-gradient(135deg, #1091b9 0%, #78fa8d 100%);
     
     /* Sombras modernas */
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -239,14 +239,14 @@ body {
     align-items: center;
     gap: 12px;
     font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
 }
 
 .logo i {
-    font-size: 1.2rem;
+    font-size: 1rem;
     background: var(--gradient-primary);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -261,7 +261,7 @@ body {
 }
 
 .nav-menu a {
-    font-size: 20px;
+    font-size: 18px;
     text-decoration: none;
     color: var(--text-dark);
     font-weight: 500;
