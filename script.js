@@ -1,4 +1,3 @@
-// ===== CONFIGURAÇÕES GLOBAIS =====
 const CONFIG = {
     // Configurações do PIX - ALTERE AQUI seus dados
     PIX: {
@@ -12,7 +11,8 @@ const CONFIG = {
     
     // Configurações do YouTube - ALTERE AQUI o canal
     YOUTUBE: {
-        channelId: '@harleywagner',
+        apiKey: 'AIzaSyBi-mg71pzAMIBA5UGpuNhZnrgGrELjQIE',
+        channelId: 'UCvFbHvZgiXnyrjOqYHLyfug',
         maxVideos: 6
     }
 };
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadYouTubeVideos();
     initScrollAnimations();
     initHeaderScroll();
+    initImageGallery(); // Adicionado para a galeria de imagens
     
     console.log('✅ Todas as funcionalidades inicializadas!');
 });
@@ -193,7 +194,7 @@ function showPixPayment(courseId, price, title) {
             <div class="payment-methods">
                 <h4><i class="fas fa-qrcode"></i> Opção 1: QR Code PIX</h4>
                 <div class="qr-container">
-                    <img src="qr-code-pix.png" alt="QR Code PIX" class="qr-image">
+                    <img src="qr-code-pix.jpeg" alt="QR Code PIX" class="qr-image">
                     <p class="qr-instruction">Escaneie o QR Code com o app do seu banco</p>
                 </div>
                 
@@ -269,20 +270,7 @@ function copyPixKey() {
 // ===== ENVIAR COMPROVANTE POR EMAIL =====
 function sendReceipt(courseId, title, price) {
     const subject = `Comprovante de Pagamento - ${title}`;
-    const body = `Olá!
-
-Realizei o pagamento via PIX para o curso "${title}" no valor de R$ ${price}.
-
-Dados do curso:
-- Nome: ${title}
-- Valor: R$ ${price}
-- Data: ${new Date().toLocaleDateString('pt-BR')}
-
-Segue em anexo o comprovante de pagamento.
-
-Aguardo o envio do e-book em PDF.
-
-Atenciosamente.`;
+    const body = `Olá!\n\nRealizei o pagamento via PIX para o curso "${title}" no valor de R$ ${price}.\n\nDados do curso:\n- Nome: ${title}\n- Valor: R$ ${price}\n- Data: ${new Date().toLocaleDateString('pt-BR')}\n\nSegue em anexo o comprovante de pagamento.\n\nAguardo o envio do e-book em PDF.\n\nAtenciosamente.`;
 
     const mailtoLink = `mailto:${CONFIG.PIX.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     
@@ -297,63 +285,59 @@ Atenciosamente.`;
 }
 
 // ===== CARREGAR VÍDEOS DO YOUTUBE =====
-function loadYouTubeVideos() {
+async function loadYouTubeVideos() {
     const videosContainer = document.getElementById('videosContainer');
-    
-    // Vídeos simulados do canal - em produção, use a API do YouTube
-    const videos = [
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'Mensagem de Fé e Esperança - Transformando Vidas',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '1.2K visualizações',
-            date: 'há 2 dias'
-        },
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'O Poder da Oração na Vida do Jovem Cristão',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '856 visualizações',
-            date: 'há 5 dias'
-        },
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'Vida Cristã Vitoriosa - Superando Desafios',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '2.1K visualizações',
-            date: 'há 1 semana'
-        },
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'Comunhão e Amor Fraternal na Igreja',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '743 visualizações',
-            date: 'há 1 semana'
-        },
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'Propósito de Deus Para Sua Vida',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '1.8K visualizações',
-            date: 'há 2 semanas'
-        },
-        {
-            id: 'dQw4w9WgXcQ',
-            title: 'Adoração e Louvor - Conectando com Deus',
-            thumbnail: 'https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg',
-            views: '1.5K visualizações',
-            date: 'há 3 semanas'
-        }
-    ];
-    
-    // Limpar container
+    const videoLoading = document.querySelector('.video-loading');
+
+    // Clear existing content
     videosContainer.innerHTML = '';
-    
-    // Criar cards de vídeo
-    videos.forEach(video => {
-        const videoCard = createVideoCard(video);
-        videosContainer.appendChild(videoCard);
-    });
+
+    // Show loading message
+    if (videoLoading) {
+        videoLoading.style.display = 'block';
+    }
+
+    try {
+        // Fetch channel uploads playlist ID
+        const channelResponse = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=contentDetails&id=${CONFIG.YOUTUBE.channelId}&key=${CONFIG.YOUTUBE.apiKey}`);
+        const channelData = await channelResponse.json();
+        const uploadsPlaylistId = channelData.items[0].contentDetails.relatedPlaylists.uploads;
+
+        // Fetch videos from the uploads playlist
+        const playlistResponse = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=${CONFIG.YOUTUBE.maxVideos}&key=${CONFIG.YOUTUBE.apiKey}`);
+        const playlistData = await playlistResponse.json();
+        const videos = playlistData.items;
+
+        // Filter out the live stream if it's already displayed separately
+        const filteredVideos = videos.filter(video => {
+            // Assuming live stream is identified by a specific title or if it's currently live
+            // This might need adjustment based on how the live stream is identified in the API response
+            return !video.snippet.liveBroadcastContent || video.snippet.liveBroadcastContent === 'none';
+        });
+
+        // Create video cards for fetched videos
+        filteredVideos.forEach(item => {
+            const videoId = item.snippet.resourceId.videoId;
+            const title = item.snippet.title;
+            const thumbnailUrl = item.snippet.thumbnails.high.url;
+            // You might need to fetch view count and publish date separately if not available in playlistItems
+            // For simplicity, using dummy data for now or parsing from description if available
+            const views = 'N/A'; // Placeholder
+            const date = 'N/A'; // Placeholder
+
+            const videoCard = createVideoCard({ id: videoId, title: title, thumbnail: thumbnailUrl, views: views, date: date });
+            videosContainer.appendChild(videoCard);
+        });
+
+    } catch (error) {
+        console.error('Erro ao carregar vídeos do YouTube:', error);
+        showNotification('Erro ao carregar vídeos do YouTube. Tente novamente mais tarde.', 'error');
+    } finally {
+        // Hide loading message after attempt
+        if (videoLoading) {
+            videoLoading.style.display = 'none';
+        }
+    }
 }
 
 // ===== CRIAR CARD DE VÍDEO =====
@@ -363,7 +347,7 @@ function createVideoCard(video) {
     card.innerHTML = `
         <div class="video-thumbnail" onclick="openVideo('${video.id}')">
             <img src="${video.thumbnail}" alt="${video.title}" 
-                 onerror="this.src='data:image/svg+xml,<svg xmlns=\\"http://www.w3.org/2000/svg\\" viewBox=\\"0 0 400 300\\"><rect fill=\\"%23f0f0f0\\" width=\\"400\\" height=\\"300\\"/><text x=\\"50%\\" y=\\"50%\\" text-anchor=\\"middle\\" fill=\\"%23999\\" font-size=\\"16\\">Vídeo Indisponível</text></svg>'">
+                 onerror="this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 400 300\"><rect fill=\"%23f0f0f0\" width=\"400\" height=\"300\"/><text x=\"50%\" y=\"50%\" text-anchor=\"middle\" fill=\"%23999\" font-size=\"16\">Vídeo Indisponível</text></svg>'">
             <div class="play-button">
                 <i class="fas fa-play"></i>
             </div>
@@ -469,238 +453,86 @@ function getNotificationIcon(type) {
 
 function getNotificationColor(type) {
     const colors = {
-        success: '#10b981',
-        error: '#ef4444',
-        warning: '#f59e0b',
-        info: '#6366f1'
+        success: '#28a745',
+        error: '#dc3545',
+        warning: '#ffc107',
+        info: '#17a2b8'
     };
-    return colors[type] || '#6366f1';
+    return colors[type] || '#17a2b8';
 }
 
 function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
-// ===== ESTILOS ADICIONAIS VIA JAVASCRIPT =====
-const additionalStyles = document.createElement('style');
-additionalStyles.textContent = `
-    @keyframes slideInRight {
-        from { transform: translateX(100%); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
-    }
-    
-    @keyframes slideOutRight {
-        from { transform: translateX(0); opacity: 1; }
-        to { transform: translateX(100%); opacity: 0; }
-    }
-    
-    .pix-payment {
-        text-align: center;
-        max-width: 500px;
-        margin: 0 auto;
-    }
-    
-    .course-info {
-        margin-bottom: 30px;
-        padding: 25px;
-        background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-        border-radius: 16px;
-        color: white;
-    }
-    
-    .course-info h3 {
-        margin-bottom: 10px;
-        font-size: 1.4rem;
-    }
-    
-    .price-display {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-bottom: 8px;
-    }
-    
-    .payment-methods h4 {
-        color: #1f2937;
-        margin: 25px 0 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 1.1rem;
-    }
-    
-    .qr-container {
-        margin-bottom: 25px;
-    }
-    
-    .qr-image {
-        width: 200px;
-        height: 200px;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        margin-bottom: 10px;
-    }
-    
-    .qr-instruction {
-        color: #6b7280;
-        font-size: 0.9rem;
-    }
-    
-    .divider {
-        margin: 25px 0;
-        position: relative;
-        text-align: center;
-    }
-    
-    .divider::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: #e5e7eb;
-    }
-    
-    .divider span {
-        background: white;
-        padding: 0 15px;
-        color: #9ca3af;
-        font-weight: 500;
-    }
-    
-    .pix-key-container {
-        background: #f8fafc;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 25px;
-    }
-    
-    .pix-key-info {
-        margin-bottom: 15px;
-    }
-    
-    .pix-key-info label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #374151;
-    }
-    
-    .key-display {
-        display: flex;
-        gap: 8px;
-    }
-    
-    .key-display input {
-        flex: 1;
-        padding: 12px;
-        border: 2px solid #e5e7eb;
-        border-radius: 8px;
-        font-family: monospace;
-        font-size: 14px;
-        background: white;
-    }
-    
-    .copy-btn {
-        padding: 12px 16px;
-        background: #6366f1;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-    }
-    
-    .copy-btn:hover {
-        background: #5b5bd6;
-    }
-    
-    .pix-details {
-        text-align: left;
-    }
-    
-    .pix-details p {
-        margin-bottom: 5px;
-        color: #4b5563;
-        font-size: 0.9rem;
-    }
-    
-    .payment-instructions {
-        background: #f0f9ff;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 25px;
-        text-align: left;
-    }
-    
-    .payment-instructions h4 {
-        color: #0369a1;
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .payment-instructions ol {
-        padding-left: 20px;
-        color: #374151;
-    }
-    
-    .payment-instructions li {
-        margin-bottom: 8px;
-        line-height: 1.5;
-    }
-    
-    .send-receipt {
-        text-align: center;
-    }
-    
-    .send-receipt-btn {
-        width: 100%;
-        padding: 16px;
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-    }
-    
-    .receipt-note {
-        color: #6b7280;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .receipt-note i {
-        color: #10b981;
-    }
-    
-    .notification-content {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    
-    .notification-close {
-        background: none;
-        border: none;
-        color: inherit;
-        cursor: pointer;
-        padding: 4px;
-        margin-left: auto;
-        opacity: 0.8;
-        transition: opacity 0.3s ease;
-    }
-    
-    .notification-close:hover {
-        opacity: 1;
-    }
-`;
+// ===== GALERIA DE IMAGENS (QUEM SOMOS) =====
+function initImageGallery() {
+    const galleryContainer = document.getElementById('imageGallery');
+    if (!galleryContainer) return; // Exit if gallery container not found
 
-document.head.appendChild(additionalStyles);
+    const images = [
+        'galeria1.jpg',
+        'galeria2.jpg',
+        'galeria3.jpg',
+        'galeria4.jpg',
+        'galeria5.jpg'
+    ];
 
-console.log('🎯 Sistema PIX e YouTube configurado!');
-console.log('📧 Email para comprovantes:', CONFIG.PIX.email);
-console.log('🔑 Chave PIX:', CONFIG.PIX.chave);
+    let currentIndex = 0;
+
+    function renderGallery() {
+        galleryContainer.innerHTML = ''; // Clear existing images
+        images.forEach((src, index) => {
+            const imgElement = document.createElement('img');
+            imgElement.src = src;
+            imgElement.alt = `Imagem da Galeria ${index + 1}`;
+            imgElement.classList.add('gallery-image');
+            if (index === currentIndex) {
+                imgElement.classList.add('active');
+            }
+            imgElement.addEventListener('click', () => openLightbox(src));
+            galleryContainer.appendChild(imgElement);
+        });
+    }
+
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        renderGallery();
+    }
+
+    // Automatic carousel
+    setInterval(showNextImage, 5000); // Change image every 5 seconds
+
+    // Lightbox functionality
+    const lightbox = document.createElement('div');
+    lightbox.id = 'lightbox';
+    lightbox.classList.add('lightbox');
+    lightbox.innerHTML = `
+        <span class="close-lightbox">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+    `;
+    document.body.appendChild(lightbox);
+
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLightboxBtn = document.querySelector('.close-lightbox');
+
+    closeLightboxBtn.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+    });
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+        }
+    });
+
+    function openLightbox(src) {
+        lightbox.style.display = 'block';
+        lightboxImg.src = src;
+    }
+
+    renderGallery(); // Initial render
+}
+
 

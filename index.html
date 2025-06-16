@@ -14,6 +14,197 @@
     
     <!-- Ícones Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <meta charset="UTF-8">
+  <title>Rádio Viva FM</title>
+ <style>
+  .radio-player {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 30px;
+    padding: 6px;
+    width: 300px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .radio-player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+    z-index: -1;
+  }
+
+  .radio-player:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .radio-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .radio-btn {
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    border: none;
+    color: white;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  }
+
+  .radio-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+  }
+
+  .radio-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .radio-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0;
+  }
+
+  .radio-status {
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .radio-visualizer {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 20px;
+  }
+
+  .radio-bar {
+    width: 3px;
+    background: linear-gradient(to top, #6366f1, #10b981);
+    border-radius: 2px;
+    animation: audioWave 1.5s ease-in-out infinite;
+  }
+
+  .radio-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .radio-bar:nth-child(2) { height: 15px; animation-delay: 0.1s; }
+  .radio-bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+  .radio-bar:nth-child(4) { height: 18px; animation-delay: 0.3s; }
+  .radio-bar:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+  .radio-bar:nth-child(6) { height: 16px; animation-delay: 0.5s; }
+
+  @keyframes audioWave {
+    0%, 100% { transform: scaleY(0.5); opacity: 0.7; }
+    50% { transform: scaleY(1); opacity: 1; }
+  }
+
+  .radio-headphones {
+    color: #6366f1;
+    font-size: 24px;
+    opacity: 0.8;
+  }
+
+  .volume-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .volume-slider {
+    flex: 1;
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
+  }
+
+  .volume-icon {
+    color: #6b7280;
+    font-size: 14px;
+  }
+
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .radio-player {
+        text-align: center;
+      width: 250px;
+      height: 100px;
+      padding: 5px;
+    }
+    
+    .radio-btn {
+      width: 40px;
+      height: 40px;
+      font-size: 14px;
+    }
+    
+    .radio-title {
+      font-size: 13px;
+    }
+    
+    .radio-status {
+      font-size: 11px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .radio-player {
+        text-align: center;
+      width: 250px;
+      padding: 12px;
+      gap: 10px;
+    }
+    
+    .radio-btn {
+      width: 35px;
+      height: 35px;
+      font-size: 12px;
+    }
+    
+    .radio-headphones {
+      font-size: 20px;
+    }
+  }
+</style>
 </head>
 <body>
     
@@ -25,16 +216,88 @@
                 <div class="logo">
                     <i class="fas fa-cross"></i>
                     <span>Igreja Vida em Cristo</span>
-                </div>
+                 
                 
                 <!-- Menu de Navegação -->
                 <ul class="nav-menu">
+                    
                     <li><a href="#inicio">Início</a></li>
                     <li><a href="#sobre">Sobre Nós</a></li>
                     <li><a href="#videos">Vídeos</a></li>
                     <li><a href="#cursos">Cursos</a></li>
                     <li><a href="#contato">Contato</a></li>
                 </ul>
+                    <!-- Player de Rádio Viva FM -->
+               <div class="radio-player">
+  <div class="radio-controls">
+    <button id="playPauseBtn" class="radio-btn" onclick="toggleRadio()">
+      <i class="fas fa-play"></i>
+    </button>
+  </div>
+
+  <div class="radio-info">
+    <div class="radio-title">🎵 RÁDIO VIVA FM</div>
+    <div class="radio-status">
+      <span id="radioStatus">Clique para ouvir</span>
+      <div class="radio-visualizer" id="visualizer" style="display: none;">
+        <div class="radio-bar"></div>
+        <div class="radio-bar"></div>
+        <div class="radio-bar"></div>
+        <div class="radio-bar"></div>
+        <div class="radio-bar"></div>
+        <div class="radio-bar"></div>
+      </div>
+    </div>
+    <div class="volume-control">
+      <i class="fas fa-volume-down volume-icon"></i>
+      <input type="range" class="volume-slider" min="0" max="1" step="0.01" value="1" onchange="setVolume(this.value)">
+      <i class="fas fa-volume-up volume-icon"></i>
+    </div>
+  </div>
+
+  <div class="radio-headphones">
+    <i class="fas fa-headphones"></i>
+  </div>
+
+  <audio id="radio" preload="none">
+    <source src="https://srv3.lugsoft.com.br/bs/proxy/stream.php?ip=stm7.betelhost.com.br&port=11824&mount=/;" type="audio/mpeg">
+    Seu navegador não suporta o elemento de áudio.
+  </audio>
+
+  <script>
+  const radio = document.getElementById('radio');
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const radioStatus = document.getElementById('radioStatus');
+  const visualizer = document.getElementById('visualizer');
+
+  let isPlaying = false;
+
+  function toggleRadio() {
+    if (isPlaying) {
+      radio.pause();
+      playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+      radioStatus.textContent = 'Clique para ouvir';
+      visualizer.style.display = 'none';
+      isPlaying = false;
+    } else {
+      radio.play().then(() => {
+        playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+        radioStatus.textContent = 'Tocando ao vivo';
+        visualizer.style.display = 'flex';
+        isPlaying = true;
+      }).catch(e => {
+        radioStatus.textContent = 'Erro ao conectar';
+        console.error('Erro ao tentar tocar a rádio:', e);
+      });
+    }
+  }
+
+  function setVolume(val) {
+    radio.volume = val;
+  }
+</script>
+                </div>
+               
                 
                 <!-- Botão do menu mobile -->
                 <div class="hamburger">
@@ -42,6 +305,7 @@
                     <span></span>
                     <span></span>
                 </div>
+                  
             </div>
         </nav>
     </header>
@@ -132,6 +396,10 @@
                     </div>
                 </div>
             </div>
+            <div class="image-gallery" id="imageGallery">
+                <!-- Imagens serão carregadas aqui pelo JavaScript -->
+            </div>
+            </div>
         </div>
     </section>
 
@@ -140,12 +408,54 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Conteúdo Inspirador</span>
-                <h2>Vídeos e Mensagens</h2>
+               <!-- <h2>Vídeos e Mensagens</h2>
                 <p>Assista às nossas mensagens e conteúdos que edificam e transformam vidas</p>
             </div>
-            
+             <div class="video-info">
+                        <h4>🔴 Transmissão ao Vivo - Igreja Vida em Cristo</h4>
+                        <p>Acompanhe nossa programação ao vivo direto do YouTube. Cultos, estudos bíblicos e eventos especiais!</p>
+                        <span class="video-meta">
+                            <i class="fas fa-eye"></i>
+                            Ao vivo agora
+                        </span>
+                        <div class="live-actions">
+                            <a href="https://studio.youtube.com/channel/UCvFbHvZgiXnyrjOqYHLyfug/livestreaming" target="_blank" class="btn btn-primary">
+                                <i class="fab fa-youtube"></i>
+                                Assistir no YouTube
+                            </a>
+                        </div>
+                    </div>
+                </div>-->
+                 <!-- Transmissão ao vivo do YouTube - DESTAQUE -->
+                <div style="max-width: 100%; margin: 20px auto;">
+  <h2 style="text-align: center;">Transmissão Ao Vivo</h2>
+  <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+    <iframe 
+      src="https://www.youtube.com/embed/live_stream?channel=UCvFbHvZgiXnyrjOqYHLyfug&autoplay=1"
+      style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
             <div class="videos-grid" id="videosContainer">
-                <!-- Os vídeos serão carregados dinamicamente via JavaScript -->
+               
+                <div class="video-item live-video featured-live">
+                    <div class="video-thumbnail">
+                       <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin: 20px 0;">
+  <iframe width="100%" height="315"
+  src="https://www.youtube.com/embed/ID_DO_VIDEO"
+  title="YouTube video player"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen>
+</iframe>
+</div>
+        
+</div>
+                
+                <!-- Os outros vídeos serão carregados dinamicamente via JavaScript -->
                 <div class="video-loading">
                     <i class="fab fa-youtube"></i>
                     <p>Carregando vídeos inspiradores...</p>
@@ -153,7 +463,7 @@
             </div>
             
             <div class="videos-link">
-                <a href="https://www.youtube.com/@harleywagner" target="_blank" class="btn btn-primary">
+                <a href="https://www.youtube.com/channel/UCvFbHvZgiXnyrjOqYHLyfug" target="_blank" class="btn btn-primary">
                     <i class="fab fa-youtube"></i>
                     Ver Todos os Vídeos
                 </a>
